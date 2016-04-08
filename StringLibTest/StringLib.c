@@ -7,6 +7,9 @@ char *getLine(char *input, char **extra) {
    char *line = NULL;
    int ndx, lastSpace = -1;
    
+   if (!input || strlen(input) < LINE_SIZE)
+      return input;
+   
    for (ndx = 0; ndx < LINE_SIZE && ndx < strlen(input); ndx++)
       if(input[ndx] == ' ')
          lastSpace = ndx;
