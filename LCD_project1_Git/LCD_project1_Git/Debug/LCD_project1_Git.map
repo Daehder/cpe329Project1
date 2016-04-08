@@ -260,7 +260,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x8c0
+.text           0x00000000      0x8cc
  *(.vectors)
  .vectors       0x00000000       0x68 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.98/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -346,58 +346,58 @@ END GROUP
                 0x000000a6                . = ALIGN (0x2)
  *(.text.*)
  .text.lcd_write_cmd
-                0x000000a6       0x30 main.o
+                0x000000a6       0x36 main.o
                 0x000000a6                lcd_write_cmd
  .text.lcd_write_char
-                0x000000d6       0x30 main.o
-                0x000000d6                lcd_write_char
+                0x000000dc       0x3a main.o
+                0x000000dc                lcd_write_char
  .text.lcd_initialize
-                0x00000106       0x5c main.o
-                0x00000106                lcd_initialize
+                0x00000116       0x5c main.o
+                0x00000116                lcd_initialize
  .text.lcd_print_string
-                0x00000162       0xb4 main.o
-                0x00000162                lcd_print_string
- .text.main     0x00000216       0x4c main.o
-                0x00000216                main
+                0x00000172       0xb4 main.o
+                0x00000172                lcd_print_string
+ .text.main     0x00000226       0x48 main.o
+                0x00000226                main
  .text.getLines
-                0x00000262      0x138 StringLibTest/StringLib.o
-                0x00000262                getLines
+                0x0000026e      0x138 StringLibTest/StringLib.o
+                0x0000026e                getLines
  .text.avr-libc
-                0x0000039a       0x38 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(calloc.o)
-                0x0000039a                calloc
+                0x000003a6       0x38 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(calloc.o)
+                0x000003a6                calloc
  .text.avr-libc
-                0x000003d2      0x25a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(malloc.o)
-                0x000003d2                malloc
-                0x000004fc                free
+                0x000003de      0x25a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+                0x000003de                malloc
+                0x00000508                free
  .text.avr-libc
-                0x0000062c      0x194 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(realloc.o)
-                0x0000062c                realloc
+                0x00000638      0x194 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(realloc.o)
+                0x00000638                realloc
  .text.avr-libc
-                0x000007c0        0xa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(strtok.o)
-                0x000007c0                strtok
+                0x000007cc        0xa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(strtok.o)
+                0x000007cc                strtok
  .text.avr-libc
-                0x000007ca       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(memcpy.o)
-                0x000007ca                memcpy
+                0x000007d6       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(memcpy.o)
+                0x000007d6                memcpy
  .text.avr-libc
-                0x000007dc        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(memset.o)
-                0x000007dc                memset
+                0x000007e8        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(memset.o)
+                0x000007e8                memset
  .text.avr-libc
-                0x000007ea       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(strcat.o)
-                0x000007ea                strcat
+                0x000007f6       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(strcat.o)
+                0x000007f6                strcat
  .text.avr-libc
-                0x00000800       0x4e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(strtok_r.o)
-                0x00000800                strtok_r
+                0x0000080c       0x4e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(strtok_r.o)
+                0x0000080c                strtok_r
  .text.libgcc.prologue
-                0x0000084e       0x38 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_prologue.o)
-                0x0000084e                __prologue_saves__
+                0x0000085a       0x38 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_prologue.o)
+                0x0000085a                __prologue_saves__
  .text.libgcc.prologue
-                0x00000886       0x36 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_epilogue.o)
-                0x00000886                __epilogue_restores__
-                0x000008bc                . = ALIGN (0x2)
+                0x00000892       0x36 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_epilogue.o)
+                0x00000892                __epilogue_restores__
+                0x000008c8                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000008bc        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
-                0x000008bc                _exit
-                0x000008bc                exit
+ .fini9         0x000008c8        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+                0x000008c8                _exit
+                0x000008c8                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -416,11 +416,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000008bc        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+ .fini0         0x000008c8        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000008c0                _etext = .
+                0x000008cc                _etext = .
 
-.data           0x00800100       0x30 load address 0x000008c0
+.data           0x00800100       0x30 load address 0x000008cc
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x6 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(malloc.o)
@@ -450,8 +450,8 @@ END GROUP
                 0x00800132                __brkval
                 0x00800134                __flp
                 0x00800136                PROVIDE (__bss_end, .)
-                0x000008c0                __data_load_start = LOADADDR (.data)
-                0x000008f0                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000008cc                __data_load_start = LOADADDR (.data)
+                0x000008fc                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800136        0x0
                 0x00800136                PROVIDE (__noinit_start, .)
@@ -537,37 +537,37 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x919
+.debug_info     0x00000000      0x8a7
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0x6c2 main.o
- .debug_info    0x000006c2      0x257 StringLibTest/StringLib.o
+ .debug_info    0x00000000      0x650 main.o
+ .debug_info    0x00000650      0x257 StringLibTest/StringLib.o
 
 .debug_abbrev   0x00000000      0x2bf
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x1cf main.o
  .debug_abbrev  0x000001cf       0xf0 StringLibTest/StringLib.o
 
-.debug_line     0x00000000      0x398
+.debug_line     0x00000000      0x381
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000      0x252 main.o
- .debug_line    0x00000252      0x146 StringLibTest/StringLib.o
+ .debug_line    0x00000000      0x23b main.o
+ .debug_line    0x0000023b      0x146 StringLibTest/StringLib.o
 
 .debug_frame    0x00000000       0xf4
  *(.debug_frame)
  .debug_frame   0x00000000       0x80 main.o
  .debug_frame   0x00000080       0x74 StringLibTest/StringLib.o
 
-.debug_str      0x00000000      0x260
+.debug_str      0x00000000      0x2b5
  *(.debug_str)
- .debug_str     0x00000000      0x1ff main.o
-                                0x23f (size before relaxing)
- .debug_str     0x000001ff       0x61 StringLibTest/StringLib.o
+ .debug_str     0x00000000      0x20e main.o
+                                0x24e (size before relaxing)
+ .debug_str     0x0000020e       0xa7 StringLibTest/StringLib.o
                                 0x186 (size before relaxing)
 
-.debug_loc      0x00000000      0x4f3
+.debug_loc      0x00000000      0x463
  *(.debug_loc)
- .debug_loc     0x00000000      0x246 main.o
- .debug_loc     0x00000246      0x2ad StringLibTest/StringLib.o
+ .debug_loc     0x00000000      0x1b6 main.o
+ .debug_loc     0x000001b6      0x2ad StringLibTest/StringLib.o
 
 .debug_macinfo
  *(.debug_macinfo)

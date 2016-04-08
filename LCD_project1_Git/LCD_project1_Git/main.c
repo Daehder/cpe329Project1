@@ -33,10 +33,9 @@ int main(void)
 {
 	UCSR0B = 0;				// allows atmel to R/W to pins 0 and 1
 	DDRB = 0b00100111;		// Pin11-12 = Input; E, RW, RS, PIN13 = output
-	DDRD = 0b11111111;		// DB(7-0) = output
+	DDRD = 0b11111111;		// DB(7-0) = output	
 	
-	PORTB |= (1<<PB4);	// set pull-ups for pins12
-	PORTB |= (1<<PB3);	// set oull-up for pin11
+	PORTB |= 0b00011000;	// set internal pull-ups @ pin11/12
 	
 	//initialize LCD
 	lcd_initialize();
@@ -44,13 +43,12 @@ int main(void)
 	// print to the LCD
 	lcd_print_string("Hello World! Iamveryhappytotrythisout!");
 	
-	while(69){
-		while(PINB & (1<<PB4)){
-			PORTB |= (1<<PB5);    	   // write a 1 to pin13
-			_delay_ms(1000);    	   // Wait
-			PORTB &= ~(1<<PB5);        // Write a 0 to pin13
-			_delay_ms(1000);    	   // Wait
-		}
+	while(1){
+		//if button is pressed
+		if((~PINB & 0b00010000) | (~PINB & 0b00001000))
+			PORTB |= 0b00100000;	// turn on led
+		else
+			PORTB &= 0b11011111;	// turn off led
 	}
 	
 	return 1;
@@ -58,25 +56,25 @@ int main(void)
 
 // runs pins and delays to send LCD a command 
 void lcd_write_cmd(char command){
-	PORTB = 0b00000000;	    // E, RW, RS = 0,0,0
+	PORTB &= 0b11111000;    // E, RW, RS = 0,0,0
 	_delay_us(1);			// delay
 	PORTD = command;		// set command
 	_delay_us(1);			// delay
-	PORTB = 0b00000100;		// E, RW, RS = 1,0,0
+	PORTB |= 0b00000100;	// E, RW, RS = 1,0,0
 	_delay_us(1);			// delay 
-	PORTB = 0b00000000;		// E, RW, RS = 0,0,0
+	PORTB &= 0b11111000;	// E, RW, RS = 0,0,0
 	_delay_us(50);
 }
 
 //  runs pins and delays to have LCD print characters 
 void lcd_write_char(char character){
-	PORTB = 0b00000000;	    // E, RW, RS = 0,0,0
+	PORTB &= 0b11111000;    // E, RW, RS = 0,0,0
 	_delay_us(1);			// delay
 	PORTD = character;		// send character
 	_delay_us(1);			// delay
-	PORTB = 0b00000101;		// E, RW, RS = 1,0,1
+	PORTB |= 0b00000101;	// E, RW, RS = 1,0,1
 	_delay_us(1);			// delay
-	PORTB = 0b00000000;		// E, RW, RS = 0,0,0
+	PORTB &= 0b11111000;	// E, RW, RS = 0,0,0
 	_delay_us(50);
 }
 
