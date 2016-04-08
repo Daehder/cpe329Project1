@@ -43,14 +43,14 @@ int main(void)
 	lcd_initialize();
 	
 	// print to the LCD
-	lcd_print_string("Hello World!... Goodbye World!");
+	lcd_print_string("Hello World!... Goodbye and I");
 	
 	while(1){
 		// if a button is pressed
 		if(check_buttons()){
 			PORTB |= 0b00100000;	// turn on led
 			clear_display();
-			lcd_print_string("I like big butts and I can not lie!");
+			lcd_print_string("I like big buttsss and I can not lie!");
 		}
 		else
 			PORTB &= 0b11011111;	// turn off led
@@ -121,7 +121,7 @@ void lcd_print_string(char string[]){
  */
 	
 	char *line1, *line2, *extra;
-   line1 = getLine(&extra);
+   line1 = getLine(string, &extra);
    
 	// print top line
 	for(int i=0; i<strlen(line1); i++){
@@ -132,7 +132,7 @@ void lcd_print_string(char string[]){
 	// set cursor to beginning of line 2
 	lcd_write_cmd(set_line2);
    string = extra;
-   line2 = getLine(&extra);
+   line2 = getLine(string, &extra);
 	
 	// print bottom line 
 	for(int j=0; j<strlen(line2); j++){
