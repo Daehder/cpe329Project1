@@ -109,7 +109,8 @@ uint8_t check_buttons(){
 
 // prints string of characters to LCD
 void lcd_print_string(char string[]){
-for(int x=0; x<strlen(string); x++){
+/*
+   for(int x=0; x<strlen(string); x++){
 	if(x==16){
 		lcd_write_cmd(set_line2);
 		_delay_us(std_delay);
@@ -117,11 +118,11 @@ for(int x=0; x<strlen(string); x++){
 	lcd_write_char(string[x]);
 	_delay_us(std_delay);
 }
+ */
 	
-/*
 	char *line1, *line2, *extra;
-	getLines(string, &line1, &line2, &extra);
-	
+   line1 = getLine(&extra);
+   
 	// print top line
 	for(int i=0; i<strlen(line1); i++){
 		lcd_write_char(line1[i]);
@@ -130,13 +131,15 @@ for(int x=0; x<strlen(string); x++){
 	
 	// set cursor to beginning of line 2
 	lcd_write_cmd(set_line2);
+   string = extra;
+   line2 = getLine(&extra);
 	
 	// print bottom line 
 	for(int j=0; j<strlen(line2); j++){
 		lcd_write_char(line2[j]);
 		_delay_us(std_delay);
 	}
-*/
+
 }
 
 void clear_display(){
