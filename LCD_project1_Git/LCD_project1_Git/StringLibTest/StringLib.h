@@ -7,6 +7,7 @@
 //
 
 #ifndef StringLib_h
+char *getLine(char *input, char **extra);
 void getLines(char *input, char **line1, char **line2, char **extra);
 #define StringLib_h
 
