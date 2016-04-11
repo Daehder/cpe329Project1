@@ -7,6 +7,7 @@
 
 #define F_CPU 16000000UL	// set CPU speed to 16MHz
 #define std_delay 50		// set standard delay time to 50us
+#define cmd_delay 50		// sets std delay for commands at 10us
 #define debounce 250		// set debounce time to 50ms
 #define func_set 0x38		// 8bit command for function set
 #define func_set_4bit 0x28	// 4bit command for function set
@@ -35,7 +36,7 @@ uint8_t check_buttons();
 
 int main(void)
 {
-	UCSR0B = 0;			// allows atmel to R/W to pins 0 and 1
+	//UCSR0B = 0;			// allows atmel to R/W to pins 0 and 1
 	DDRB = 0b00100111;		// Pin11-12 = Input; E, RW, RS, PIN13 = output
 	DDRD = 0b11111111;		// DB(7-0) = output	
 	
@@ -43,8 +44,14 @@ int main(void)
 	
 	//initialize LCD
 	lcd_initialize();
-	
-	//lcd_write_char('H');
+
+	lcd_write_char('H');
+	lcd_write_char('E');
+	lcd_write_char('L');
+	lcd_write_char('L');
+	lcd_write_char('O');
+	lcd_write_char('!');
+
 	// print to the LCD
 	//lcd_print_string("Hello, World!   Press a button?");
 
@@ -72,23 +79,26 @@ void lcd_write_cmd(char command){
 	PORTB &= 0b11111000;    // E, RW, RS = 0,0
 	PORTD = ms_bits;		// set command upper bits
 	PORTB |= 0b00000100;	// E, RW, RS = 1,0,0
+	_delay_us(cmd_delay);	// delay > 50us
 	PORTB &= 0b11111000;	// E, RW, RS = 0,0,0
 	PORTD = ls_bits;		// set command lower bits
 	PORTB |= 0b00000100;	// E, RW, RS = 1,0,0
+	_delay_us(cmd_delay);	// delay > 50us
 	PORTB &= 0b11111000;	// E, RW, RS = 0,0,0
+	//_delay_us(std_delay);	// delay for new commands
 }
 
 // runs LCD initialization code
 void lcd_initialize(){
 	_delay_ms(35);					// power ON delay > 30ms
 	lcd_write_cmd(func_set_4bit);	// run function set
-	busy();							// delay > 50us
+	_delay_us(std_delay);			// delay > 50us
 	lcd_write_cmd(disp_ctrl);		// run display set (off)
-	busy();							// delay > 50us
+	_delay_ms(2);					// delay > 50us
 	lcd_write_cmd(disp_clear);		// run clear display
-	busy();							// delay > 1.5 ms
+	_delay_us(std_delay);			// delay > 50us
 	lcd_write_cmd(entry_mode);		// set entry mode
-	busy();							// delay > 50us
+	_delay_us(std_delay);			// delay > 50us
 }
 
 //  runs pins and delays to have LCD print characters 
@@ -99,12 +109,13 @@ void lcd_write_char(char character){
 	PORTB &= 0b11111000;    // E, RW, RS = 0,0,0
 	PORTD = ms_bits;		// send character upper bits
 	PORTB |= 0b00000101;	// E, RW, RS = 1,0,1
-	PORTB &= 0b11111000;    // E, RW, RS = 0,0,0
-	_delay_us(std_delay);
+	_delay_us(cmd_delay);	// delay > 50us
+	PORTB &= 0b11111001;    // E, RW, RS = 0,0,1
 	PORTD = ls_bits;		// send character lower bits
 	PORTB |= 0b00000101;	// E, RW, RS = 1,0,1
+	_delay_us(cmd_delay);	// delay > 50us
 	PORTB &= 0b11111000;	// E, RW, RS = 0,0,0
-	_delay_us(std_delay);
+	//_delay_us(std_delay);	// delay for next command
 }
 
 // check which (if any) buttons are pressed
@@ -161,9 +172,11 @@ void clear_display(){
 	_delay_ms(3);
 }
 
+/*
 // if busy return 0 if not return 1
 void busy(){
 	PORTB |= 0b00000010;	// E, RW, RS = 0,1,0
 	while(PIND & 0b100000000)
 		_delay_us(1);
 }
+*/

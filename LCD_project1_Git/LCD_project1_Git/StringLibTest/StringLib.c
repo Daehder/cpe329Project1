@@ -27,9 +27,9 @@ char *getLine(char *input, char **extra) {
 
 // Takes a string in as line1, then splits the string into line1, line2, and extra
 // This program allocates space for line1 and line 2,
-//  so you MUST free line1 and line2 later
-// Extra simply points to a location in  input,
-//  so do not use extra after freeing or modifying input
+// so you MUST free line1 and line2 later
+// Extra simply points to a location in input,
+// so do not use extra after freeing or modifying input
 void getLines(char *input, char **line1, char **line2, char **extra) {
    int charsUsed = 0;
    char *token;
