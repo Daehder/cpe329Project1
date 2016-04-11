@@ -8,25 +8,9 @@
  * Quarter: Spring 2016
  */ 
 
-<<<<<<< HEAD
-//////////////////////////////PREPROCESSING/////////////////////////////////////
-
-#define F_CPU 16000000UL	// set CPU speed to 16MHz
-#define std_delay 50		// set standard delay time to 50us
-#define debounce 250		// set debounce time to 50ms
-#define func_set 0x38		// 8bit command for function set
-#define disp_ctrl 0x0F		// 8bit command for display control
-#define disp_clear 0x01		// 8bit command for display clear
-#define entry_mode 0x06		// 8bit command for enable entry
-#define set_line1 0x02		// address for start of line 2
-#define set_line2 0xC0		// address for start of line 1
-#define right_button 0x01	// return type for right button
-#define left_button 0x02	// return type for left button
-#define pin13 0x20			// pin13 LED port
-=======
 #define F_CPU 16000000UL         /* Set CPU speed to 16MHz */
 #define std_delay 50             /* Set standard delay time to 50us */
-#define debounce 100             /* Set debounce time to 50ms */
+#define debounce 250             /* Set debounce time to 50ms */
 
 #define func_set 0x38            /* 8 bit command for function set */
 #define disp_ctrl 0x0F           /* 8 bit command for display control */
@@ -38,9 +22,10 @@
 
 #define right_button 0x01        /* Return type for right button */
 #define left_button 0x02         /* Return type for left button */
->>>>>>> origin/master
 
-// Included libraries
+#define pin13 0x20               /* pin13 LED port */
+
+/* Included libraries */
 #include <avr/io.h>
 #include <util/delay.h>
 #include <string.h>
@@ -58,9 +43,6 @@ uint8_t check_buttons();
 void ui_text(char text_string[], uint16_t freq_mHz, uint16_t duty);
 void led_driver_pin13(uint16_t freq_mHz, uint16_t duty);
 
-
-/////////////////////////////MAIN FUNCTION//////////////////////////////////////
-
 int main(void)
 {
 	UCSR0B = 0;                   /* Allows atmel to R/W to pins 0 and 1 */
@@ -72,7 +54,6 @@ int main(void)
 	/*Initialize the LCD */
 	lcd_initialize();
 	
-<<<<<<< HEAD
 	while(1){
 		ui_text("And what happened, then?", 0, 5);
 		ui_text("Well, ", 0, 10);
@@ -85,37 +66,11 @@ int main(void)
 		ui_text("strength of *ten* Grinches,", 0, 100);
 		ui_text("plus two!", 1000, 50);
 		ui_text("Merry Holidays! Replay?", 1000, 50);
-		
-=======
-	/* Print to the LCD */
-	lcd_print_string("Hello World!... Goodbye and I");
-	
-	while(1){
-		/* If a button is pressed */
-		if(check_buttons()){
-			PORTB |= 0b00100000;    /* Turn on led */
-			clear_display();
-			lcd_print_string("I like big buttsss and I can not lie!");
-		}
-		else
-			PORTB &= 0b11011111;    /* Turn off led */
->>>>>>> origin/master
 	}
 	
 	return 1;
 }
 
-<<<<<<< HEAD
-//////////////////////////////HELPER FUNCTIONS//////////////////////////////////
-
-// toggles pins and runs delays to send LCD a command 
-void lcd_write_cmd(char command){
-	PORTB &= 0b11111000;    // E = 0
-	PORTD = command;		// set command
-	PORTB |= 0b00000100;	// E = 0
-	PORTB &= 0b11111000;	// E = 0
-	_delay_us(std_delay);	// delay
-=======
 /* Sends LCD a command */
 void lcd_write_cmd(char command){
 	PORTB &= 0b11111000;          /* E, RW, RS = 0,0,0 */
@@ -123,43 +78,19 @@ void lcd_write_cmd(char command){
 	PORTB |= 0b00000100;          /* E, RW, RS = 1,0,0 */
 	PORTB &= 0b11111000;          /* E, RW, RS = 0,0,0 */
 	_delay_us(std_delay);
->>>>>>> origin/master
 }
 
 /* Initializes the LCD */
 void lcd_initialize(){
-<<<<<<< HEAD
-	_delay_ms(35);					// power ON delay > 30ms
-	lcd_write_cmd(func_set);		// run function set
-	_delay_us(std_delay);			// delay > 40us
-	lcd_write_cmd(disp_ctrl);		// run display set 
-	_delay_us(std_delay);			// delay > 40us
-	lcd_write_cmd(disp_clear);		// run clear display
-	_delay_ms(2);					// delay > 1.5 ms
-	lcd_write_cmd(entry_mode);		// set entry mode
-	_delay_us(std_delay);			// delay > 40us
-}
-
-//  toggles pins and runs delays for have LCD character writing  
-void lcd_write_char(char character){
-	PORTB &= 0b11111000;    // E = 0
-	PORTD = character;		// send character
-	PORTB |= 0b00000101;	// E = 1; RS = 1
-	PORTB &= 0b11111000;	// E = 0; RS = 0
-	_delay_us(std_delay);	// delay
-}
-
-// returns which button is press or returns 0 if not pressed
-=======
 	_delay_ms(35);                /* power ON delay > 30ms */
 	lcd_write_cmd(func_set);		/* run function set */
-	_delay_us(std_delay);			/* delay > 50us */
+	_delay_us(std_delay);			/* delay > 40us */
 	lcd_write_cmd(disp_ctrl);		/* run display set (off) */
-	_delay_us(std_delay);			/* delay > 50us */
+	_delay_us(std_delay);			/* delay > 40us */
 	lcd_write_cmd(disp_clear);		/* run clear display */
 	_delay_ms(2);                 /* delay > 1.5 ms */
 	lcd_write_cmd(entry_mode);		/* set entry mode */
-	_delay_us(std_delay);			/* delay > 50us */
+	_delay_us(std_delay);			/* delay > 40us */
 }
 
 /* Prints a character to the LCD */
@@ -174,7 +105,6 @@ void lcd_write_char(char character){
 /* Checks which (if any) buttons are pressed and
  *  returns the constant associated with said button
  * If no button is pressed, 0 is returned */
->>>>>>> origin/master
 uint8_t check_buttons(){
 	/* If pin12 (left) button is pressed */
 	if(~PINB & 0b00010000){
@@ -189,14 +119,9 @@ uint8_t check_buttons(){
 		return 0;
 }
 
-<<<<<<< HEAD
-// prints string of characters to LCD
-void lcd_print_string(char string[]){	
-	// variables to check if there is LCD line overflow
-=======
 /* Prints string of characters to LCD */
 void lcd_print_string(char string[]){
->>>>>>> origin/master
+   /* Variables to check if there is LCD line overflow */
 	char *line1, *line2, *extra;
 	line1 = getLine(string, &extra);
    
@@ -219,7 +144,7 @@ void lcd_print_string(char string[]){
 
 }
 
-// clear the display and set cursor to top left
+/* Clear the display and set cursor to top left */
 void clear_display(){
 	lcd_write_cmd(disp_clear);
 	_delay_ms(2);
@@ -242,9 +167,9 @@ void led_driver_pin13(uint16_t freq_mHz, uint16_t duty){
 	uint16_t tON = period_ms*duty/100;
 	uint16_t tOFF = period_ms - tON;
 	
-	PORTB |= 0b00100000;	// turn on led
+	PORTB |= 0b00100000;          /* turn on led */
 	delay_ms(tON);
-	PORTB &= 0b11011111;	// turn off led
+	PORTB &= 0b11011111;          /* turn off led */
 	delay_ms(tOFF);
 }
 
