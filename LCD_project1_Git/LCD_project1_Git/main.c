@@ -109,17 +109,6 @@ uint8_t check_buttons(){
 
 // prints string of characters to LCD
 void lcd_print_string(char string[]){
-/*
-   for(int x=0; x<strlen(string); x++){
-	if(x==16){
-		lcd_write_cmd(set_line2);
-		_delay_us(std_delay);
-	}
-	lcd_write_char(string[x]);
-	_delay_us(std_delay);
-}
- */
-	
 	char *line1, *line2, *extra;
    line1 = getLine(string, &extra);
    
