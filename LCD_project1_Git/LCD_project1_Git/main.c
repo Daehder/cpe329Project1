@@ -8,6 +8,7 @@
  * Quarter: Spring 2016
  */ 
 
+<<<<<<< HEAD
 //////////////////////////////PREPROCESSING/////////////////////////////////////
 
 #define F_CPU 16000000UL	// set CPU speed to 16MHz
@@ -22,15 +23,31 @@
 #define right_button 0x01	// return type for right button
 #define left_button 0x02	// return type for left button
 #define pin13 0x20			// pin13 LED port
+=======
+#define F_CPU 16000000UL         /* Set CPU speed to 16MHz */
+#define std_delay 50             /* Set standard delay time to 50us */
+#define debounce 100             /* Set debounce time to 50ms */
+
+#define func_set 0x38            /* 8 bit command for function set */
+#define disp_ctrl 0x0F           /* 8 bit command for display control */
+#define disp_clear 0x01          /* 8 bit command for display clear */
+#define entry_mode 0x06          /* 8 bit command for enable entry */
+
+#define set_line1 0x02           /* Address for start of line 2 */
+#define set_line2 0xC0           /* Address for start of line 1 */
+
+#define right_button 0x01        /* Return type for right button */
+#define left_button 0x02         /* Return type for left button */
+>>>>>>> origin/master
 
 // Included libraries
 #include <avr/io.h>
 #include <util/delay.h>
 #include <string.h>
 #include <stdlib.h>
-#include "StringLibTest/StringLib.h"
+#include "StringLib/StringLib.h"
 
-// function prototypes 
+/* Function prototypes  */
 void lcd_write_cmd(char command);
 void lcd_write_char(char character);
 void lcd_initialize();
@@ -46,15 +63,16 @@ void led_driver_pin13(uint16_t freq_mHz, uint16_t duty);
 
 int main(void)
 {
-	UCSR0B = 0;				// allows atmel to R/W to pins 0 and 1
-	DDRB = 0b00100111;		// Pin11-12 = Input; E, RW, RS, PIN13 = output
-	DDRD = 0b11111111;		// DB(7-0) = output	
+	UCSR0B = 0;                   /* Allows atmel to R/W to pins 0 and 1 */
+	DDRB = 0b00100111;            /* Pin11-12 = In; E, RW, RS, PIN13 = Out */
+	DDRD = 0b11111111;            /* DB(7-0) = output */
 	
-	PORTB |= 0b00011000;	// set internal pull-ups @ pin11/12
+	PORTB |= 0b00011000;          /* Set internal pull-ups @ pin11/12 */
 	
-	//initialize LCD
+	/*Initialize the LCD */
 	lcd_initialize();
 	
+<<<<<<< HEAD
 	while(1){
 		ui_text("And what happened, then?", 0, 5);
 		ui_text("Well, ", 0, 10);
@@ -68,11 +86,26 @@ int main(void)
 		ui_text("plus two!", 1000, 50);
 		ui_text("Merry Holidays! Replay?", 1000, 50);
 		
+=======
+	/* Print to the LCD */
+	lcd_print_string("Hello World!... Goodbye and I");
+	
+	while(1){
+		/* If a button is pressed */
+		if(check_buttons()){
+			PORTB |= 0b00100000;    /* Turn on led */
+			clear_display();
+			lcd_print_string("I like big buttsss and I can not lie!");
+		}
+		else
+			PORTB &= 0b11011111;    /* Turn off led */
+>>>>>>> origin/master
 	}
 	
 	return 1;
 }
 
+<<<<<<< HEAD
 //////////////////////////////HELPER FUNCTIONS//////////////////////////////////
 
 // toggles pins and runs delays to send LCD a command 
@@ -82,10 +115,20 @@ void lcd_write_cmd(char command){
 	PORTB |= 0b00000100;	// E = 0
 	PORTB &= 0b11111000;	// E = 0
 	_delay_us(std_delay);	// delay
+=======
+/* Sends LCD a command */
+void lcd_write_cmd(char command){
+	PORTB &= 0b11111000;          /* E, RW, RS = 0,0,0 */
+	PORTD = command;              /* set command */
+	PORTB |= 0b00000100;          /* E, RW, RS = 1,0,0 */
+	PORTB &= 0b11111000;          /* E, RW, RS = 0,0,0 */
+	_delay_us(std_delay);
+>>>>>>> origin/master
 }
 
-// runs LCD initialization code
+/* Initializes the LCD */
 void lcd_initialize(){
+<<<<<<< HEAD
 	_delay_ms(35);					// power ON delay > 30ms
 	lcd_write_cmd(func_set);		// run function set
 	_delay_us(std_delay);			// delay > 40us
@@ -107,38 +150,68 @@ void lcd_write_char(char character){
 }
 
 // returns which button is press or returns 0 if not pressed
+=======
+	_delay_ms(35);                /* power ON delay > 30ms */
+	lcd_write_cmd(func_set);		/* run function set */
+	_delay_us(std_delay);			/* delay > 50us */
+	lcd_write_cmd(disp_ctrl);		/* run display set (off) */
+	_delay_us(std_delay);			/* delay > 50us */
+	lcd_write_cmd(disp_clear);		/* run clear display */
+	_delay_ms(2);                 /* delay > 1.5 ms */
+	lcd_write_cmd(entry_mode);		/* set entry mode */
+	_delay_us(std_delay);			/* delay > 50us */
+}
+
+/* Prints a character to the LCD */
+void lcd_write_char(char character){
+	PORTB &= 0b11111000;          /* E, RW, RS = 0,0,0 */
+	PORTD = character;            /* send character */
+	PORTB |= 0b00000101;          /* E, RW, RS = 1,0,1 */
+	PORTB &= 0b11111000;          /* E, RW, RS = 0,0,0 */
+	_delay_us(std_delay);         /* delay */
+}
+
+/* Checks which (if any) buttons are pressed and
+ *  returns the constant associated with said button
+ * If no button is pressed, 0 is returned */
+>>>>>>> origin/master
 uint8_t check_buttons(){
-	// if pin12 (left) button is pressed
+	/* If pin12 (left) button is pressed */
 	if(~PINB & 0b00010000){
 		return left_button;
 	}
-	// if pin11 (right) button is pressed
+	/* If pin11 (right) button is pressed */
 	else if(~PINB & 0b00001000){
 		return right_button;
 	}
-	// if no button is pressed
+	/* If no button is pressed */
 	else
 		return 0;
 }
 
+<<<<<<< HEAD
 // prints string of characters to LCD
 void lcd_print_string(char string[]){	
 	// variables to check if there is LCD line overflow
+=======
+/* Prints string of characters to LCD */
+void lcd_print_string(char string[]){
+>>>>>>> origin/master
 	char *line1, *line2, *extra;
 	line1 = getLine(string, &extra);
    
-	// print top line
+	/* Print top line */
 	for(int i=0; i<strlen(line1); i++){
 		lcd_write_char(line1[i]);
 		_delay_us(std_delay);
 	}
 	
-	// set cursor to beginning of line 2
+	/* Set cursor to beginning of line 2 */
 	lcd_write_cmd(set_line2);
    string = extra;
    line2 = getLine(string, &extra);
 	
-	// print bottom line 
+	/* Print bottom line */
 	for(int j=0; j<strlen(line2); j++){
 		lcd_write_char(line2[j]);
 		_delay_us(std_delay);
